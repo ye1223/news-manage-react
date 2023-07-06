@@ -5,7 +5,9 @@ import Main from '../pages/MainBox'
 import lazyLoad from './util/lazyLoad'
 import routes from './config'
 import { RouteObject } from 'react-router-dom'
-import { RouterBeforeEach } from './component/RouterBeforeEach'
+import RouterBeforeEach from './component/RouterBeforeEach'
+import { IRouteNode } from '../types/router'
+import store from '../redux/store'
 
 type R = RouteObject & {
     auth?: boolean,
@@ -17,7 +19,7 @@ const role = 1
 const checkPermission = (item: R) => {
     // 如果这个路由需要权限的话
     if (item.auth) {
-        return role === 1
+        return true
     }
     return true
 }
@@ -46,22 +48,55 @@ export default function IndexRouter() {
         }
     ]
 
+    /* if(!defaultRoutes.find(_=>_.path='/')){ 
+        const NR: R = {
+            path: '/',
+            element: <Main />
+        }
+        addRoute(defaultRoutes, NR)
+    } */
     // 遍历routes配置，给默认配置动态添加路由
     routes.forEach(item => {
         // 给main组件添加子路由
-        checkPermission(item) && addRoute(defaultRoutes.find(route=>route.path==='/')!.children as R[], item)
+        checkPermission(item) && addRoute(defaultRoutes.find(route => route.path === '/')!.children as R[], item)
+    })
+    
+    store.dispatch({
+        type: 'change-first-router',
+        payload: false
     })
 
-    
+
     const Route = useRoutes(defaultRoutes)
 
 
     // todo <Suspense />
     return (<RouterBeforeEach routes={defaultRoutes}>
-        { Route }
+        {Route}
     </RouterBeforeEach>)
 }
 
+
+/* // 加载嵌套路由
+const LoadRoute = (defaultRoutes: IRouteNode[] ,routes: IRouteNode[]) => {
+    //没有main路由
+    if(!defaultRoutes.find(_=>_.path='/')){ 
+        addRoute(defaultRoutes, {
+            path: '/',
+            element: <Main />
+        })
+    }
+    // 遍历routes配置，给默认配置动态添加路由
+    routes.forEach(item => {
+        // 给main组件添加子路由
+        checkPermission(item) && addRoute(defaultRoutes.find(route => route.path === '/')!.children as R[], item)
+    })
+
+    store.dispatch({
+        type: 'change-first-router',
+        payload: false
+    })
+} */
 
 
 

@@ -13,11 +13,9 @@ import { IRouteNode } from '../types/router'
 import ProductList from '../pages/product-manage/ProductList'
 import ProductAdd from '../pages/product-manage/ProductAdd'
 import ProductEdit from '../pages/product-manage/ProductEdit'
+import UserAdd from '../pages/user-manage/UserAdd'
+import UserList from '../pages/user-manage/UserList'
 
-type R = RouteObject & {
-    auth?: boolean,
-    role?: number
-}
 
 const routes: IRouteNode[] = [
     {
@@ -30,18 +28,31 @@ const routes: IRouteNode[] = [
         element: lazyLoad('center/Center.tsx'),
     },
     {
+        path: 'user',
+        element: <Redirect to='/user/list' />,
+        
+    },
+    {
+        path: 'user/add',
+        element: <UserAdd />,
+        auth: true
+    },
+    {
+        path: 'user/list',
+        element: <UserList />,
+        auth: true
+    },
+    {
         path: 'news',
         element: <Redirect to='/news/list' />
     },
     {
         path: 'news/list',
         element: <NewsList />
-        
     },
     {
         path: 'news/add',
         element: <NewsAdd />,
-        
     },
     {
         path: 'news/edit',
@@ -50,28 +61,22 @@ const routes: IRouteNode[] = [
     {
         path: 'product',
         element: <Redirect to='/product/list' />,
-        auth: true
+        
     },
     {
         path: 'product/list',
         element: <ProductList />,
-        auth: true
+        
     },
     {
         path: 'product/add',
         element: <ProductAdd />,
-        auth: true
+       
     },
     {
         path: 'product/edit',
         element: <ProductEdit />,
-        auth: true
     },
-    /* {
-        path: '/',
-        element: <Redirect to='/home'/>
-    } */
-    
 ]
 
 /* const routeFilter = (routes: Config, role: number) => {

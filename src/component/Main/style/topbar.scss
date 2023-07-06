@@ -1,0 +1,30 @@
+.top-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    
+    .left{
+        height: 100%;
+        overflow: hidden;
+        div{
+            float: left;
+            margin: 7px;
+        }
+        h2{
+            float: left;
+            height: 100%;
+            margin-top:0;
+        }
+    }
+    
+    .right{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        p{
+            margin-right: 7px;
+        }
+    }
+}
+

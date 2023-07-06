@@ -1,12 +1,15 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Card, Form, Input, Button } from 'antd'
+import { Card, Form, Input, Button, message } from 'antd'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { adminapi } from '../api'
 import styled from 'styled-components'
 import Particles from "react-particles"
 import { loadFull } from "tsparticles"
 import type { Container, Engine } from "tsparticles-engine"
+import store from '../redux/store'
+import { connect } from 'react-redux'
+import { userInfoAction } from '../redux/actionCreator/userActionCreator'
 const StyledDiv = styled.div`
 height: 100%;
 width: 100%;
@@ -14,8 +17,12 @@ display: flex;
 justify-content: center;
 align-items: center;
 `
+interface IProps {
+  userinfo: string
+  userInfoAction: any
+}
 
-const Login: React.FC = () => {
+const Login: React.FC<IProps> = (props) => {
   const [form] = Form.useForm()
   const username = Form.useWatch<string>('username', form)
   const password = Form.useWatch<string>('password', form)
@@ -41,11 +48,25 @@ const Login: React.FC = () => {
 
     adminapi.login('/adminapi/user/login', { username, password }).then(res => {
       console.log(res)
+      if (res.data.ActionType === 'OK') {
+        // todo 改变用户信息
+        props.userInfoAction(res.data.info)
+
+        store.dispatch({
+          type: 'change-first-router',
+          payload: false
+        })
+
+        navigate('/')
+      } else {
+        message.warning('用户名密码不匹配')
+      }
     })
 
   }
   const onFinishFaild = (obj: any) => {
     console.log('faild', obj)
+
   }
 
   const particlesInit = useCallback(async (engine: Engine) => {
@@ -192,5 +213,13 @@ const Login: React.FC = () => {
     </StyledDiv>
   )
 }
-
-export default Login
+/* const mapStateToProps = (state: any) => {
+  console.log(state.userReducer) 
+  return {
+    userinfo: state.userReducer.userinfo
+  }
+} */
+const mapDispatchToProps = {
+  userInfoAction
+}
+export default connect(null, mapDispatchToProps)(Login)

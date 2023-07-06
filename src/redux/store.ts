@@ -1,5 +1,10 @@
-import { createStore } from 'redux'
+import { createStore, applyMiddleware, combineReducers } from 'redux'
+import reduxThunk from 'redux-thunk'
+import routerReducer from './reducer/routerReducer'
+import sidebarReducer from './reducer/sidebarReducer'
+import userReducer from './reducer/userReducer'
 
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 /* 
     isGetAllRouters:false,//路由是否全部加载进页面
@@ -15,12 +20,12 @@ import { createStore } from 'redux'
       state.isCollapsed = !state.isCollapsed
     },
 */
-const reducer: any = (prevState = {
-    isFirstLoadAllRouters: false
-}, action = {}) => {
-    
-}
+const reducer = combineReducers({
+  routerReducer,
+  sidebarReducer,
+  userReducer
+})
 
-const store = createStore(reducer)
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(reduxThunk)))
 
 export default store
