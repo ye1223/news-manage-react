@@ -7,9 +7,10 @@ import styled from 'styled-components'
 import Particles from "react-particles"
 import { loadFull } from "tsparticles"
 import type { Container, Engine } from "tsparticles-engine"
-import store from '../redux/store'
+import { store } from '../redux/store'
 import { connect } from 'react-redux'
 import { userInfoAction } from '../redux/actionCreator/userActionCreator'
+import { IUserInfo } from '../types/user'
 const StyledDiv = styled.div`
 height: 100%;
 width: 100%;
@@ -18,7 +19,7 @@ justify-content: center;
 align-items: center;
 `
 interface IProps {
-  userinfo: string
+  // userinfo: IUserInfo
   userInfoAction: any
 }
 

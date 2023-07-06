@@ -3,6 +3,8 @@ import reduxThunk from 'redux-thunk'
 import routerReducer from './reducer/routerReducer'
 import sidebarReducer from './reducer/sidebarReducer'
 import userReducer from './reducer/userReducer'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
 import { composeWithDevTools } from 'redux-devtools-extension'
 
@@ -20,12 +22,23 @@ import { composeWithDevTools } from 'redux-devtools-extension'
       state.isCollapsed = !state.isCollapsed
     },
 */
+
 const reducer = combineReducers({
   routerReducer,
   sidebarReducer,
   userReducer
 })
+const persistConfig = {
+  key: 'mykey',
+  storage, // 存入localStorage
+  // blacklist: ['userReducer'] // userReducer 将不被被持久化
+}
+const persistedReducer = persistReducer(persistConfig, reducer)
 
-const store = createStore(reducer, composeWithDevTools(applyMiddleware(reduxThunk)))
+const store = createStore(persistedReducer, composeWithDevTools(applyMiddleware(reduxThunk)))
+const persistor = persistStore(store)
 
-export default store
+export {
+  store,
+  persistor
+}

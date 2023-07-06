@@ -5,15 +5,18 @@ import reportWebVitals from './reportWebVitals';
 import 'normalize.css'
 import './util/axios.config'
 import { Provider } from 'react-redux'
-import store from './redux/store';
+import { store, persistor } from './redux/store';
+import { PersistGate } from 'redux-persist/integration/react'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-      <Provider store={store}>
-        <App /> 
-      </Provider> 
+  <Provider store={store}>
+    <PersistGate persistor={persistor}>
+      <App />
+    </PersistGate>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function

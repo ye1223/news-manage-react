@@ -7,7 +7,7 @@ import routes from './config'
 import { RouteObject } from 'react-router-dom'
 import RouterBeforeEach from './component/RouterBeforeEach'
 import { IRouteNode } from '../types/router'
-import store from '../redux/store'
+import { store } from '../redux/store'
 
 type R = RouteObject & {
     auth?: boolean,
@@ -60,7 +60,7 @@ export default function IndexRouter() {
         // 给main组件添加子路由
         checkPermission(item) && addRoute(defaultRoutes.find(route => route.path === '/')!.children as R[], item)
     })
-    
+
     store.dispatch({
         type: 'change-first-router',
         payload: false
