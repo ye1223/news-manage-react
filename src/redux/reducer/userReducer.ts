@@ -1,7 +1,16 @@
 import { IAction } from "../../types/redux"
 import { IUserInfo } from "../../types/user"
-const userReducer = (prevState = {
-    userinfo: {}
+interface IState {
+    userinfo: IUserInfo
+}
+const userReducer = (prevState: IState = {
+    userinfo: {
+        gender: -1,
+        introduction: '',
+        role: -1,
+        userid: '',
+        username: ''
+    }
 }, action: IAction<IUserInfo>) => {
     const newState = {...prevState}
     switch(action.type){

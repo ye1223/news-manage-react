@@ -3,6 +3,7 @@ export interface IUserInfo {
     introduction: string,
     role: number,
     userid: string,
-    username: string
+    username: string,
+    avatarPath?: string
     file?: any
 }

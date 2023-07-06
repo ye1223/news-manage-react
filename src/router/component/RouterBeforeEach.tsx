@@ -6,10 +6,11 @@ import { useNavigate, useLocation } from "react-router-dom"
 import { connect } from "react-redux"
 import { chnageFirstGetAllRouteAction } from "../../redux/actionCreator/routerActionCreator"
 import getCurrentRouterMap from "../util/getCurrentRoute"
+import { RootState } from "../../redux/store"
 
 // 组件
 // props.children
-const RouterBeforeEach = ({ children, routes, firstGetAllRoutes }: any) => {
+const RouterBeforeEach = ({ children, routes, firstGetAllRoutes, userinfo }: any) => {
   const location = useLocation();
   const navigate = useNavigate()
   useEffect(() => {
@@ -39,30 +40,32 @@ const RouterBeforeEach = ({ children, routes, firstGetAllRoutes }: any) => {
       }
     }
 
-    // 获取当前的路由
+    /* // 获取当前的路由
     let route = getCurrentRouterMap(routes, location.pathname)
     console.log(routes, route, location.pathname)
-    /* 
-       >路由拦截
-        1. 登录页直接跳转
-        2. 其他页-->查看授权
-    */
+    
+      //  >路由拦截
+      //   1. 登录页直接跳转
+      //   2. 其他页-->查看授权
+   
+    // 当前已是登录状态
     if (route.auth) {
       // navigator('/login')
       console.log('需要auth')
-
+      
     } else {
       console.log('不需要auth')
-    }
+    } */
   }, [location.pathname])
   return children
 }
 
 
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: RootState) => {
   return {
-    firstGetAllRoutes: state.routerReducer.isFirstLoadAllRoutes
+    firstGetAllRoutes: state.routerReducer.isFirstLoadAllRoutes,
+    userinfo: state.userReducer.userinfo
   }
 }
 const mapDispatchToProps = {

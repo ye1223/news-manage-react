@@ -1,7 +1,9 @@
 import { IAction } from "../../types/redux";
 
-
-const sidebarReducer = (prevState = {
+interface IState {
+    isCollapsed: boolean
+}
+const sidebarReducer = (prevState: IState = {
     isCollapsed: false
 }, action: IAction<boolean>) => {
     const newState = {...prevState}

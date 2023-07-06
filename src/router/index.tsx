@@ -8,18 +8,18 @@ import { RouteObject } from 'react-router-dom'
 import RouterBeforeEach from './component/RouterBeforeEach'
 import { IRouteNode } from '../types/router'
 import { store } from '../redux/store'
+import { Role } from '../enums/user.enum'
 
 type R = RouteObject & {
     auth?: boolean,
     role?: number
 }
 
-const role = 1
 
 const checkPermission = (item: R) => {
     // 如果这个路由需要权限的话
     if (item.auth) {
-        return true
+        return store.getState().userReducer.userinfo.role === Role.ADMIN
     }
     return true
 }

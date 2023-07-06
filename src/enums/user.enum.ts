@@ -1,4 +1,5 @@
 export enum Role {
+    _,
     ADMIN,
     EDITOR
 }

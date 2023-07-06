@@ -51,6 +51,7 @@ const Login: React.FC<IProps> = (props) => {
       console.log(res)
       if (res.data.ActionType === 'OK') {
         // todo 改变用户信息
+        console.log('res.data', res.data)
         props.userInfoAction(res.data.info)
 
         store.dispatch({

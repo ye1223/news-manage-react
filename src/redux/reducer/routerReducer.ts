@@ -16,7 +16,11 @@ import { IAction } from "../../types/redux"
     }
 
 } */
-const routerReducer: any = (prevState = {
+
+interface IState {
+    isFirstLoadAllRoutes: boolean
+}
+const routerReducer = (prevState: IState = {
     isFirstLoadAllRoutes: true
 }, action: IAction<boolean>) => {
     const newState = { ...prevState }
