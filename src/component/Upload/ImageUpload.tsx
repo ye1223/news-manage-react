@@ -5,7 +5,8 @@ import type { UploadChangeParam } from 'antd/es/upload';
 import type { RcFile, UploadFile, UploadProps } from 'antd/es/upload/interface';
 import process from 'process';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../../redux/store';
+import { RootState } from '../../redux/store';
+import { ImageType } from '../../enums/image.enum';
 
 /* // 转为base64
 const getBase64 = (img: RcFile, callback: (url: string) => void) => {
@@ -31,8 +32,21 @@ const beforeUpload = (file: RcFile) => {
 
 interface IProps {
   event: (val: string, rawFile: any) => void
+  imageType: number //是头像图片还是产品封面
 }
-const ImageUpload: React.FC<IProps> = ({ event }) => {
+const ImageUpload: React.FC<IProps> = ({ event, imageType }) => {
+  let IMAGE: string
+  switch(imageType){
+    case ImageType.AVATAR:
+      IMAGE = 'avatar'
+      break
+    case ImageType.PRODUCT:
+      IMAGE = 'productCover'
+      break
+    default:
+      throw new Error('ImageType有问题')
+  }
+
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string>();
   const avatar = useSelector((state: RootState)=>state.userReducer.userinfo.avatarPath)
@@ -41,18 +55,18 @@ const ImageUpload: React.FC<IProps> = ({ event }) => {
   
   useEffect(() => {
     // 解决一上来图片状态丢失问题
-    setImageUrl(`${serverurl}${avatar}`)
+    imageType === ImageType.AVATAR && setImageUrl(`${serverurl}${avatar}`)
   }, [])
 
   const handleChange: UploadProps['onChange'] = (info: UploadChangeParam<UploadFile>) => {
-    const avatarPath = URL.createObjectURL(info.file.originFileObj as RcFile)
+
+    console.log('infoooooo' ,info)
+    const imgPath = URL.createObjectURL(info.file.originFileObj as RcFile)
 
     //数据传递给父组件
-    event(avatarPath, info.file.originFileObj)
+    event(imgPath, info.file.originFileObj)
 
-    setImageUrl(avatarPath)
-
-
+    setImageUrl(imgPath)
   };
 
   const uploadButton = (
@@ -65,7 +79,7 @@ const ImageUpload: React.FC<IProps> = ({ event }) => {
   return (
     <>
       <Upload
-        name="avatar"//发到后台的文件参数名
+        name={IMAGE}//发到后台的文件参数名
         listType="picture-card"//上传列表的内建样式
         className="avatar-uploader"
         showUploadList={false}

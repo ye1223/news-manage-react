@@ -1,18 +1,14 @@
 import { Card } from 'antd'
 import React from 'react'
-import UserForm from '../../component/User/UserForm'
+import UserForm from '../center/component/UserForm'
+import UserAddForm from './component/UserAddForm'
+import style from '../../style/form-common.module.scss'
 
 export default function UserAdd() {
   return (
-    <div style={{
-      width: '70%',
-      height: 'calc(100vh - 64px)',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center'
-    }}>
+    <div className={style.formContainer}>
       <Card>
-        <UserForm />
+        <UserAddForm />
       </Card>
     </div>
   )

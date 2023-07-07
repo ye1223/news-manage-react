@@ -19,18 +19,41 @@ export const getProductList = async () => {
     })
 }
 export const upload = async (Form: any) => {
-
     const formData = new FormData()
     for (let key in Form) {
         formData.append(key, Form[key])
     }
-    
-    console.log(Form ,'formdata', formData)
-
     return await axios.post('/adminapi/user/upload', formData, {
-        // method: 'POST',
-        // url: '/adminapi/user/upload',
-        // params: FD,
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+}
+
+// 添加用户
+export const addUser = async (Form: any) => {
+    const formData = new FormData()
+    for (let key in Form) {
+        formData.append(key, Form[key])
+    }
+    return await axios.post('/adminapi/user/add', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+}
+
+export const getUserList = async () => {
+    return await axios.get('/adminapi/user/list')
+}
+
+
+export const addProduct = async (Form: any) => {
+    const formData = new FormData()
+    for (let key in Form) {
+        formData.append(key, Form[key])
+    }
+    return await axios.post('/adminapi/product/add', formData, {
         headers: {
             'Content-Type': 'multipart/form-data'
         }

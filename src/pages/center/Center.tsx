@@ -3,10 +3,14 @@ import { Row, Col, Card, Avatar } from 'antd'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { Role } from '../../enums/user.enum'
-import UserForm from '../../component/User/UserForm'
+import UserForm from './component/UserForm'
+import useFormFields from '../../hooks/useFormFields'
 
 export default function Center() {
   const userinfo = useSelector((state: RootState) => state.userReducer.userinfo)
+  // 自定义hooks用于将表单数据存储于上层组件
+  const fields = useFormFields(userinfo)
+  
   // 如果存在后端返回有头像地址，则用使用，否则使用默认的头像地址
   const avartarUrl = useMemo(() => userinfo.avatarPath ? `${process.env.REACT_APP_SERVER_URL}${userinfo.avatarPath}` : 'https://s2.loli.net/2023/07/06/gn5vemsfkXpac98.jpg', [userinfo])
   return (
@@ -24,7 +28,7 @@ export default function Center() {
         </Col>
         <Col span={15} offset={1}>
           <Card title='个人信息'>
-            <UserForm />
+            <UserForm userinfo={userinfo} fields={fields} />
           </Card>
         </Col>
       </Row>

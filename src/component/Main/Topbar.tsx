@@ -4,8 +4,9 @@ import { AppstoreTwoTone } from '@ant-design/icons'
 import './style/topbar.scss'
 import { useNavigate } from 'react-router-dom'
 import { collapseAction } from '../../redux/actionCreator/sidebarActionCreator'
-import { connect } from 'react-redux'
+import { connect, useDispatch } from 'react-redux'
 import { IUserInfo } from '../../types/user'
+import { store } from '../../redux/store'
 
 interface IProps {
     collapseAction: any
@@ -15,6 +16,7 @@ interface IProps {
 function Topbar(props: IProps) {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     // 需要将用户信息存为状态
     const [username, setusername] = useState<string>('')
 
@@ -27,6 +29,10 @@ function Topbar(props: IProps) {
     const confirm = () => {
         localStorage.removeItem('token')
         navigate('/login')
+        store.dispatch({
+            type: 'change-first-router',
+            payload: true
+        })
     }
 
     // 收缩collapse

@@ -61,19 +61,19 @@ export default function IndexRouter() {
         checkPermission(item) && addRoute(defaultRoutes.find(route => route.path === '/')!.children as R[], item)
     })
 
-    store.dispatch({
-        type: 'change-first-router',
-        payload: false
-    })
+    // store.dispatch({
+    //     type: 'change-first-router',
+    //     payload: false
+    // })
 
 
     const Route = useRoutes(defaultRoutes)
 
 
     // todo <Suspense />
-    return (<RouterBeforeEach routes={defaultRoutes}>
-        {Route}
-    </RouterBeforeEach>)
+    return (
+        Route
+    )
 }
 
 

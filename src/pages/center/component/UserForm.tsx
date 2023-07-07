@@ -1,13 +1,14 @@
 import { Button, Form, Input, Select, message } from 'antd';
-import React, { useEffect, useState } from 'react';
-import ImageUpload from './component/ImageUpload';
-import { adminapi } from '../../api';
-import { Gender } from '../../enums/user.enum';
+import React from 'react';
+import ImageUpload from '../../../component/Upload/ImageUpload';
+import { adminapi } from '../../../api';
+import { Gender } from '../../../enums/user.enum';
 import { useDispatch, useSelector } from 'react-redux';
-import { userInfoAction } from '../../redux/actionCreator/userActionCreator';
-import { IReturnUserInfo, IUserInfo } from '../../types/user';
-import { RootState } from '../../redux/store';
-import useFormFields from '../../hooks/useFormFields';
+import { userInfoAction } from '../../../redux/actionCreator/userActionCreator';
+import { IReturnUserInfo, IUserInfo } from '../../../types/user';
+import { RootState } from '../../../redux/store';
+import useFormFields, { FieldData } from '../../../hooks/useFormFields';
+import { ImageType } from '../../../enums/image.enum';
 
 const { Option } = Select;
 
@@ -20,7 +21,12 @@ const tailLayout = {
     wrapperCol: { offset: 8, span: 16 },
 };
 
-const UserForm: React.FC = () => {
+interface IProps {
+    userinfo: IUserInfo
+    fields: FieldData[]
+}
+
+const UserForm: React.FC<IProps> = () => {
     const [form] = Form.useForm();
 
     const dispatch = useDispatch()
@@ -101,7 +107,7 @@ const UserForm: React.FC = () => {
             </Form.Item>
 
             <Form.Item name="avatar" label="头像" rules={[{ required: true }]}>
-                <ImageUpload event={(blobValue: any, rawFile: any) => {
+                <ImageUpload imageType={ImageType.AVATAR} event={(blobValue: any, rawFile: any) => {
                     // setblobValue(blobValue)
                     form.setFieldsValue({ avatar: blobValue, file: rawFile });
                 }} />

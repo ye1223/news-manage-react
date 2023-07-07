@@ -7,12 +7,14 @@ import { connect } from "react-redux"
 import { chnageFirstGetAllRouteAction } from "../../redux/actionCreator/routerActionCreator"
 import getCurrentRouterMap from "../util/getCurrentRoute"
 import { RootState } from "../../redux/store"
+import Login from "../../pages/Login"
 
 // 组件
 // props.children
 const RouterBeforeEach = ({ children, routes, firstGetAllRoutes, userinfo }: any) => {
   const location = useLocation();
   const navigate = useNavigate()
+  let flag = true
   useEffect(() => {
     // >如果路由和登录相关直接return
     if (location.pathname.includes('login')) return
@@ -20,6 +22,7 @@ const RouterBeforeEach = ({ children, routes, firstGetAllRoutes, userinfo }: any
     // >检查token
     if (!localStorage.getItem('token')) {
       navigate('/login')
+      // flag = false
     } else {
       /* 
         路由加载过久不用重新加载路由了，
@@ -57,6 +60,11 @@ const RouterBeforeEach = ({ children, routes, firstGetAllRoutes, userinfo }: any
       console.log('不需要auth')
     } */
   }, [location.pathname])
+  // if(flag){
+  //   return children
+  // } else {
+  //   return <Login />
+  // }
   return children
 }
 

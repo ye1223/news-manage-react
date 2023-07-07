@@ -51,13 +51,13 @@ const Login: React.FC<IProps> = (props) => {
       console.log(res)
       if (res.data.ActionType === 'OK') {
         // todo 改变用户信息
-        console.log('res.data', res.data)
+        // console.log('res.data', res.data)
         props.userInfoAction(res.data.info)
 
-        store.dispatch({
-          type: 'change-first-router',
-          payload: false
-        })
+        // store.dispatch({
+        //   type: 'change-first-router',
+        //   payload: false
+        // })
 
         navigate('/')
       } else {
