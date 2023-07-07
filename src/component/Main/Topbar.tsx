@@ -20,7 +20,7 @@ function Topbar(props: IProps) {
 
     useEffect(() => {
         setusername(props.userinfo.username)
-        console.log('触发')
+        // console.log('触发')
     }, [props.userinfo])
 
 

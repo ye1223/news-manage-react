@@ -3,7 +3,7 @@ import { Row, Col, Card, Avatar } from 'antd'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { Role } from '../../enums/user.enum'
-import UserForm from './componnets/UserForm'
+import UserForm from '../../component/User/UserForm'
 
 export default function Center() {
   const userinfo = useSelector((state: RootState) => state.userReducer.userinfo)
