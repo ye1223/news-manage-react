@@ -21,7 +21,7 @@ const useFormFields = (userinfo: IUserInfo) => {
 }
 
 // 将redux中的用户信息map成setFields接受的键值格式
-const MapInfoToFields = (userinfo: IUserInfo) => {
+export const MapInfoToFields = (userinfo: IUserInfo) => {
     // [{ name: ['username'], value: 'Ant Design' }]
     const fieldsArr = []
     for (let key in userinfo) {

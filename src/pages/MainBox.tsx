@@ -23,6 +23,7 @@ const contentStyle: React.CSSProperties = {
   // lineHeight: '120px',
   color: '#fff',
   // backgroundColor: '#108ee9',
+  overflow: 'auto'
 };
 
 const siderStyle: React.CSSProperties = {

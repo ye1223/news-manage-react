@@ -43,10 +43,18 @@ export const addUser = async (Form: any) => {
     })
 }
 
-export const getUserList = async () => {
-    return await axios.get('/adminapi/user/list')
+export const getUserList = () => {
+    return axios.get('/adminapi/user/list')
 }
 
+export const deleteUser = async (id: string) => {
+    return axios.delete(`/adminapi/news/list/${id}`)
+}
+
+export const updateUser = (Form: any) => {
+    console.log('axiosssss',Form)
+    return axios.put(`/adminapi/user/list/${Form._id}`, Form)
+}
 
 export const addProduct = async (Form: any) => {
     const formData = new FormData()
