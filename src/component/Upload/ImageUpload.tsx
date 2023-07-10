@@ -43,6 +43,10 @@ const ImageUpload: React.FC<IProps> = ({ event, imageType }) => {
     case ImageType.PRODUCT:
       IMAGE = 'productCover'
       break
+    case ImageType.NEWS:
+      IMAGE = 'coverPath'
+      break
+    
     default:
       throw new Error('ImageType有问题')
   }
@@ -54,13 +58,13 @@ const ImageUpload: React.FC<IProps> = ({ event, imageType }) => {
   const serverurl = process.env.REACT_APP_SERVER_URL
   
   useEffect(() => {
-    // 解决一上来图片状态丢失问题
+    // 解决一上来头像图片状态丢失问题
     imageType === ImageType.AVATAR && setImageUrl(`${serverurl}${avatar}`)
   }, [])
 
   const handleChange: UploadProps['onChange'] = (info: UploadChangeParam<UploadFile>) => {
 
-    console.log('infoooooo' ,info)
+    // console.log('infoooooo' ,info)
     const imgPath = URL.createObjectURL(info.file.originFileObj as RcFile)
 
     //数据传递给父组件

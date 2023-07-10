@@ -8,7 +8,7 @@ const userReducer = (prevState: IState = {
         gender: -1,
         introduction: '',
         role: -1,
-        userid: '',
+        userID: '',
         username: ''
     }
 }, action: IAction<IUserInfo>) => {

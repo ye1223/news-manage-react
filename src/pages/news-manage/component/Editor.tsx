@@ -13,28 +13,43 @@ function MyEditor({ event }: IProps) {
     // const [editor, setEditor] = useState(null)                   // JS 语法
 
     // 编辑器内容
-    const [html, setHtml] = useState('<p>hello</p>')
+    const [html, setHtml] = useState('')
 
     // 模拟 ajax 请求，异步设置 html
-    useEffect(() => {
-        setTimeout(() => {
-            setHtml('<p>hello world</p>')
-        }, 1500)
-    }, [])
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setHtml('<p>hello world</p>')
+    //     }, 1500)
+    // }, [])
 
     // 工具栏配置
     const toolbarConfig: Partial<IToolbarConfig> = {}  // TS 语法
-    // const toolbarConfig = { }                        // JS 语法
 
     // 编辑器配置
     const editorConfig: Partial<IEditorConfig> = {    // TS 语法
-        // const editorConfig = {                         // JS 语法
         placeholder: '请输入内容...',
     }
 
     // 及时销毁 editor ，重要！
     useEffect(() => {
+        // 传递给父组件
         event(html)
+    }, [html])
+
+/*     useEffect(()=>{
+        return () => {
+            if(location.pathname!=='/news/add'){
+                console.log('销毁')
+                if (editor == null) return
+                editor?.destroy()
+                setEditor(null)
+            }
+            // console.log(location.pathname)
+        }
+    }, [location.pathname, editor]) */
+
+    // 实例销毁
+    useEffect(()=>{
         return () => {
             if (editor == null) return
             editor.destroy()
@@ -60,9 +75,9 @@ function MyEditor({ event }: IProps) {
                     style={{ height: '500px', overflowY: 'hidden' }}
                 />
             </div>
-            <div style={{ marginTop: '15px' }}>
+            {/* <div style={{ marginTop: '15px' }}>
                 {html}
-            </div>
+            </div> */}
         </>
     )
 }

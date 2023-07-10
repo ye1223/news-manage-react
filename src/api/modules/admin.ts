@@ -59,3 +59,16 @@ export const addProduct = async (Form: any) => {
         }
     })
 }
+
+
+export const addNews = async (Form: any) => {
+    const formData = new FormData()
+    for (let key in Form) {
+        formData.append(key, Form[key])
+    }
+    return await axios.post('/adminapi/news/add', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+}

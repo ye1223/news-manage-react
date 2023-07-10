@@ -2,7 +2,7 @@ export interface IUserInfo {
     gender: number,
     introduction: string,
     role: number,
-    userid: string,
+    userID: string,
     username: string,
     avatarPath?: string
     file?: any
