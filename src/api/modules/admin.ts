@@ -80,3 +80,37 @@ export const addNews = async (Form: any) => {
         }
     })
 }
+
+// 根据权限判断当前用户ID
+export const getNewsList = (id: string) => {
+    return axios.get(`/adminapi/news/lists/${id}`)
+}
+
+export const getNews = (newsid: string) => {
+    return axios.get(`/adminapi/news/list/${newsid}`)
+}
+
+export const handleNewsPublish = (isPublish: boolean ,newsid: string) => {
+    console.log('axios', isPublish? 1: 0, newsid)
+    return axios.put(`/adminapi/news/publish`, {
+        _id: newsid,
+        isPublish: isPublish? 1: 0
+    })
+}
+
+export const editNews = async (Form: any) => {
+    const formData = new FormData()
+    for (let key in Form) {
+        formData.append(key, Form[key])
+    }
+    return await axios.post('/adminapi/news/list', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+}
+
+export const deleteNews = (newsid: string) => {
+    return axios.delete(`/adminapi/news/list/${newsid}`)
+}
+

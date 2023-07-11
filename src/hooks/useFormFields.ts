@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { IUserInfo } from "../types/user"
+import { INewsInfo } from "../types/news";
 
 export interface FieldData {
     name: string | number | (string | number)[];
@@ -8,26 +9,26 @@ export interface FieldData {
     validating?: boolean;
     errors?: string[];
 }
-const useFormFields = (userinfo: IUserInfo) => {
+const useFormFields = (info: IUserInfo | INewsInfo) => {
 
     // 存储这样的键值{ name: ['username'], value: 'Ant Design' }
     const [fields, setFields] = useState<FieldData[]>([]);
 
     useEffect(() => {
-        setFields(MapInfoToFields(userinfo))
-    }, [userinfo])
+        setFields(MapInfoToFields(info))
+    }, [info])
 
     return fields
 }
 
 // 将redux中的用户信息map成setFields接受的键值格式
-export const MapInfoToFields = (userinfo: IUserInfo) => {
+export const MapInfoToFields = (info: IUserInfo | INewsInfo) => {
     // [{ name: ['username'], value: 'Ant Design' }]
     const fieldsArr = []
-    for (let key in userinfo) {
+    for (let key in info) {
         fieldsArr.push({
             name: [`${key}`],
-            value: (userinfo as any)[key]
+            value: (info as any)[key]
         })
     }
     // console.log('fieldsArr', fieldsArr)

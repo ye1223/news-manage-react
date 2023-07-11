@@ -33,8 +33,9 @@ const beforeUpload = (file: RcFile) => {
 interface IProps {
   event: (val: string, rawFile: any) => void
   imageType: number //是头像图片还是产品封面
+  edit?: boolean //编辑页面，展示图片
 }
-const ImageUpload: React.FC<IProps> = ({ event, imageType }) => {
+const ImageUpload: React.FC<IProps> = ({ event, imageType, edit }) => {
   let IMAGE: string
   switch(imageType){
     case ImageType.AVATAR:
@@ -58,8 +59,8 @@ const ImageUpload: React.FC<IProps> = ({ event, imageType }) => {
   const serverurl = process.env.REACT_APP_SERVER_URL
   
   useEffect(() => {
-    // 解决一上来头像图片状态丢失问题
-    imageType === ImageType.AVATAR && setImageUrl(`${serverurl}${avatar}`)
+    // 解决一上来头像图片状态丢失问题（个人中心头像和编辑页面需要展示图片）
+    (imageType === ImageType.AVATAR || edit) && setImageUrl(`${serverurl}${avatar}`)
   }, [])
 
   const handleChange: UploadProps['onChange'] = (info: UploadChangeParam<UploadFile>) => {

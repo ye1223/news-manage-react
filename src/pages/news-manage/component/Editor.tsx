@@ -6,8 +6,9 @@ import { IDomEditor, IEditorConfig, IToolbarConfig } from '@wangeditor/editor'
 
 interface IProps {
     event: (val: string) => void
+    content?: string
 }
-function MyEditor({ event }: IProps) {
+function MyEditor({ event, content }: IProps) {
     // editor 实例
     const [editor, setEditor] = useState<IDomEditor | null>(null)   // TS 语法
     // const [editor, setEditor] = useState(null)                   // JS 语法
@@ -21,6 +22,11 @@ function MyEditor({ event }: IProps) {
     //         setHtml('<p>hello world</p>')
     //     }, 1500)
     // }, [])
+
+    // 设置父组件传来的值
+    useEffect(() => {
+        setHtml(content as string)
+    }, [content])
 
     // 工具栏配置
     const toolbarConfig: Partial<IToolbarConfig> = {}  // TS 语法
@@ -36,20 +42,20 @@ function MyEditor({ event }: IProps) {
         event(html)
     }, [html])
 
-/*     useEffect(()=>{
-        return () => {
-            if(location.pathname!=='/news/add'){
-                console.log('销毁')
-                if (editor == null) return
-                editor?.destroy()
-                setEditor(null)
+    /*     useEffect(()=>{
+            return () => {
+                if(location.pathname!=='/news/add'){
+                    console.log('销毁')
+                    if (editor == null) return
+                    editor?.destroy()
+                    setEditor(null)
+                }
+                // console.log(location.pathname)
             }
-            // console.log(location.pathname)
-        }
-    }, [location.pathname, editor]) */
+        }, [location.pathname, editor]) */
 
     // 实例销毁
-    useEffect(()=>{
+    useEffect(() => {
         return () => {
             if (editor == null) return
             editor.destroy()

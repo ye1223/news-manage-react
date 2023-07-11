@@ -59,6 +59,10 @@ const routes: IRouteNode[] = [
         element: <NewsEdit />
     },
     {
+        path: 'news/edit/:newsid',
+        element: <NewsEdit />
+    },
+    {
         path: 'product',
         element: <Redirect to='/product/list' />,
         

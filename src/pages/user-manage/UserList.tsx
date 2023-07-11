@@ -1,5 +1,5 @@
-import { Avatar, Button, Card, List, Modal, Popconfirm, Space, Table, Tag, message } from 'antd'
-import React, { useCallback, useEffect, useState } from 'react'
+import { Avatar, Card, Popconfirm, Space, Table, Tag, message } from 'antd'
+import React, { useEffect, useState } from 'react'
 import { adminapi, serverurl } from '../../api'
 import { IReturnUserList, IUserInfo } from '../../types/user'
 import type { ColumnsType } from 'antd/es/table';
@@ -111,7 +111,7 @@ export default function UserList() {
               okText="确定"
               cancelText="取消"
             >
-              <Button>删除</Button>
+              <a>删除</a>
             </Popconfirm>
           </Space>
         </>
@@ -124,16 +124,16 @@ export default function UserList() {
     <div>
       <Card>
         <Table columns={columns} dataSource={list} />
-        <UserEditModal 
+        <UserEditModal
           // forceUpdate={forceUpdate}
-          forceUpdateEvent={(status)=>{
+          forceUpdateEvent={(status) => {
             setupdate(status)
           }}
-          open={open} 
-          row={row as IUserInfo} 
+          open={open}
+          row={row as IUserInfo}
           event={(val) => {
-          setOpen(val)
-        }} />
+            setOpen(val)
+          }} />
       </Card>
     </div>
   )

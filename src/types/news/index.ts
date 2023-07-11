@@ -5,5 +5,24 @@ export interface INewsInfo {
     coverPath: string, //封面地址信息
     file?: any, //提交给后端二进制文件
     isPublish: number, //0未发布 1已发布
-    userID: string
+    userID: string,
+    editTime: string
+    _id: string
+    key?: string
+}
+
+export interface IReturnNewsInfo {
+    ActionType: string
+    newsList: INewsInfo[]
+}
+
+export interface IReturnNewsPublish {
+    ActionType: string
+}
+
+export interface IReturnNewsEdit {
+    ActionType: string
+}
+export interface IReturnNewsDelete {
+    ActionType: string
 }

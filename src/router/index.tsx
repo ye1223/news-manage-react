@@ -68,6 +68,7 @@ export default function IndexRouter() {
 
 
     const Route = useRoutes(defaultRoutes)
+    // console.log('rrrrr' , routes, defaultRoutes)
 
 
     // todo <Suspense />
