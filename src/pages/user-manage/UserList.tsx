@@ -54,7 +54,10 @@ export default function UserList() {
     {
       title: '编号',
       dataIndex: 'label',
-      key: 'label'
+      key: 'label',
+      render: (_,record, index) =>{
+        return <span>{++ index}</span>
+      }
     },
     {
       title: '用户名',

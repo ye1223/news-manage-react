@@ -83,7 +83,10 @@ export default function NewsList() {
     {
       title: '编号',
       dataIndex: 'label',
-      key: 'label'
+      key: 'label',
+      render: (_,record, index) =>{
+        return <span>{++ index}</span>
+      }
     },
     {
       title: '标题',
@@ -189,7 +192,7 @@ export default function NewsList() {
             margin: '0 auto'
           }} />
 
-        {/* 渲染html */}
+        {/* 渲染 */}
         <div dangerouslySetInnerHTML={{ __html: news?.content as any }}></div>
       </Modal>
     </div>

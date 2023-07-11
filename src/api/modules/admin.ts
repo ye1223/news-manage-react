@@ -9,15 +9,7 @@ export const login = async (url: string, form: LoginForm) => {
     return await axios.post(url, form)
 }
 
-export const getProductList = async () => {
-    return await axios({
-        method: 'GET',
-        url: '/adminapi/product/lists',
-        // headers:{
-        //     "Content-Type": "img/png"
-        // }
-    })
-}
+
 export const upload = async (Form: any) => {
     const formData = new FormData()
     for (let key in Form) {
@@ -52,21 +44,11 @@ export const deleteUser = async (id: string) => {
 }
 
 export const updateUser = (Form: any) => {
-    console.log('axiosssss',Form)
+    console.log('axiosssss', Form)
     return axios.put(`/adminapi/user/list/${Form._id}`, Form)
 }
 
-export const addProduct = async (Form: any) => {
-    const formData = new FormData()
-    for (let key in Form) {
-        formData.append(key, Form[key])
-    }
-    return await axios.post('/adminapi/product/add', formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        }
-    })
-}
+
 
 
 export const addNews = async (Form: any) => {
@@ -90,11 +72,11 @@ export const getNews = (newsid: string) => {
     return axios.get(`/adminapi/news/list/${newsid}`)
 }
 
-export const handleNewsPublish = (isPublish: boolean ,newsid: string) => {
-    console.log('axios', isPublish? 1: 0, newsid)
+export const handleNewsPublish = (isPublish: boolean, newsid: string) => {
+    console.log('axios', isPublish ? 1 : 0, newsid)
     return axios.put(`/adminapi/news/publish`, {
         _id: newsid,
-        isPublish: isPublish? 1: 0
+        isPublish: isPublish ? 1 : 0
     })
 }
 
@@ -114,3 +96,40 @@ export const deleteNews = (newsid: string) => {
     return axios.delete(`/adminapi/news/list/${newsid}`)
 }
 
+export const getProductList = async () => {
+    return await axios({
+        method: 'GET',
+        url: '/adminapi/product/lists',
+    })
+}
+export const addProduct = async (Form: any) => {
+    const formData = new FormData()
+    for (let key in Form) {
+        formData.append(key, Form[key])
+    }
+    return await axios.post('/adminapi/product/add', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+}
+
+export const deleteProduct = (productid: string) => {
+    return axios.delete(`/adminapi/product/list/${productid}`)
+}
+
+export const getProduct = (productid: string) => {
+    return axios.get(`/adminapi/product/list/${productid}`)
+}
+
+export const editProduct = async (Form: any) => {
+    const formData = new FormData()
+    for (let key in Form) {
+        formData.append(key, Form[key])
+    }
+    return await axios.post('/adminapi/product/list', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+}

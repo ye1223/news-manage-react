@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import type { RootState } from '../../redux/store'
 import process from 'process'
 import { adminapi } from '../../api'
-import { IProductInfo, IReturnProduct } from '../../types/product'
+import { IProductInfo, IReturnProductList } from '../../types/product'
 const contentStyle: React.CSSProperties = {
   // height: '160px',
   color: '#fff',
@@ -26,7 +26,7 @@ export default function Home() {
 
   // useEffect 接收的回调函数会在每次渲染后执行。它并非等待 async 函数完成后再执行其他效果,这会破坏 React 的同步渲染机制。
   useEffect(() => {
-    adminapi.getProductList().then(res => res.data).then((res: IReturnProduct) => {
+    adminapi.getProductList().then(res => res.data).then((res: IReturnProductList) => {
       if (res.ActionType === 'OK') {
         console.log(productList)
         setproductList(res.productList)

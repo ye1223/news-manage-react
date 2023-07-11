@@ -2,7 +2,7 @@ import { Button, Form, Input, Select, message } from 'antd';
 import React from 'react';
 import ImageUpload from '../../../component/Upload/ImageUpload';
 import { adminapi } from '../../../api';
-import { IReturnProduct } from '../../../types/product';
+import { IReturnProductInfo } from '../../../types/product';
 import { ImageType } from '../../../enums/image.enum';
 
 
@@ -24,7 +24,7 @@ const ProductAddForm: React.FC = () => {
         console.log('value' ,values)
 
         adminapi.addProduct(values).then(res => res.data)
-            .then((res: IReturnProduct) => {
+            .then((res: IReturnProductInfo) => {
                 if (res.ActionType === 'OK') {
                     message.success('添加成功')
                     // todo 是否跳转到用户列表
