@@ -7,8 +7,8 @@ import { ImageType } from '../../../enums/image.enum';
 
 
 const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 },
+    labelCol: { span: 4 },
+    wrapperCol: { span: 20 },
 };
 
 const tailLayout = {
@@ -47,7 +47,9 @@ const ProductAddForm: React.FC = () => {
             form={form}
             name="control-hooks"
             onFinish={onFinish}
-            style={{ maxWidth: 600 }}
+            // style={{ maxWidth: 600 }}
+            style={{ width: '700px' }}
+
         >
             <Form.Item name="title" label="产品名称" rules={[{ required: true }]}>
                 <Input />

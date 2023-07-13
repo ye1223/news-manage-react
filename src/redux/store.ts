@@ -3,6 +3,7 @@ import reduxThunk from 'redux-thunk'
 import routerReducer from './reducer/routerReducer'
 import sidebarReducer from './reducer/sidebarReducer'
 import userReducer from './reducer/userReducer'
+import themeReducer from './reducer/themeReducer'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
@@ -26,7 +27,8 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 const reducer = combineReducers({
   routerReducer,
   sidebarReducer,
-  userReducer
+  userReducer,
+  themeReducer
 })
 const persistConfig = {
   key: 'mykey',

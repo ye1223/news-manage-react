@@ -9,12 +9,12 @@ import { ImageType } from '../../../enums/image.enum';
 const { Option } = Select;
 
 const layout = {
-    labelCol: { span: 8 },
-    wrapperCol: { span: 16 },
+    labelCol: { span: 4 },
+    // wrapperCol: { span: 16 },
 };
 
 const tailLayout = {
-    wrapperCol: { offset: 8, span: 16 },
+    wrapperCol: { offset: 0, span: 0 },
 };
 
 
@@ -49,7 +49,8 @@ const UserAddForm: React.FC = () => {
             form={form}
             name="control-hooks"
             onFinish={onFinish}
-            style={{ maxWidth: 600 }}
+            // style={{ maxWidth: 600 }}
+            style={{ width: '600px' }}
         >
             <Form.Item name="username" label="用户名" rules={[{ required: true }]}>
                 <Input />
@@ -83,7 +84,7 @@ const UserAddForm: React.FC = () => {
             </Form.Item>
 
             <Form.Item name="avatar" label="头像" rules={[{ required: true }]}>
-                <ImageUpload imageType={ImageType.AVATAR} event={(blobValue: any, rawFile: any) => {
+                <ImageUpload isAddUser={true} imageType={ImageType.AVATAR} event={(blobValue: any, rawFile: any) => {
                     form.setFieldsValue({ avatar: blobValue, file: rawFile });
                 }} />
             </Form.Item>

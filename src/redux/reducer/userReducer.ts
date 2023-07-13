@@ -16,6 +16,8 @@ const userReducer = (prevState: IState = {
     switch(action.type){
         case 'change-userinfo':
             newState.userinfo = action.payload as IUserInfo
+            // todo 后端接口并未返回role值，所以在这设置
+            newState.userinfo.role = prevState.userinfo.role
             return newState
         default:
             return prevState

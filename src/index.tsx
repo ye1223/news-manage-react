@@ -7,16 +7,28 @@ import './util/axios.config'
 import { Provider } from 'react-redux'
 import { store, persistor } from './redux/store';
 import { PersistGate } from 'redux-persist/integration/react'
+import { ConfigProvider } from 'antd';
+import { theme } from 'antd';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const validateMessages = {
+  required: "'${name}' 需要填写"
+}
 root.render(
-  <Provider store={store}>
-    <PersistGate persistor={persistor}>
-      <App />
-    </PersistGate>
-  </Provider>
+  <ConfigProvider
+    // theme={{ algorithm: theme.defaultAlgorithm }}
+    form={{ validateMessages }}
+  >
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <App />
+      </PersistGate>
+    </Provider>
+  </ConfigProvider>
+
 );
 
 // If you want to start measuring performance in your app, pass a function

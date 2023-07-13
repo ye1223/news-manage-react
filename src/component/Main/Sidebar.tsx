@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { Role } from '../../enums/user.enum';
+import { ThemeMode } from '../../types/theme';
 
 
 type MenuItem = Required<MenuProps>['items'][number];
@@ -57,6 +58,8 @@ const Sidebar: React.FC = () => {
         navigate(e.key)
     }
     const role = useSelector((state: RootState) => state.userReducer.userinfo.role)
+    const themeMode = useSelector((state: RootState) => state.themeReducer.themeMode)
+
     const [items, setitems] = useState<MenuItem[]>( [
         getItem('首页', '/', <HomeTwoTone />),
         { type: 'divider' },
@@ -95,6 +98,7 @@ const Sidebar: React.FC = () => {
             defaultOpenKeys={['sub1']}
             mode="inline"
             items={items}
+            theme={themeMode===ThemeMode.LIGHT ? 'light' : 'dark'}
         />
     );
 };

@@ -1,15 +1,14 @@
-const {createProxyMiddleware } = require('http-proxy-middleware')
-/* setTimeout(()=>{
-  console.log(process.env.NODE_ENV)
-}, 3000) */
+const { createProxyMiddleware } = require('http-proxy-middleware')
+// import process from 'process'
 
-module.exports = function(app){
+module.exports = function (app) {
   app.use(
-        '/adminapi',
-        createProxyMiddleware({
-          target: 'http://localhost:3000' ,
-          changeOrigin: true,
-          // pathRewrite: 
-        })
-      )
+    '/adminapi',
+    createProxyMiddleware({
+      target: 'http://localhost:3000' ,
+      // target: process.env.REACT_APP_SERVER_URL,
+      changeOrigin: true,
+      // pathRewrite: 
+    })
+  )
 }

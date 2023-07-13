@@ -9,12 +9,12 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { INewsInfo } from '../../types/news';
 const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
+  // labelCol: { span: 8 },
+  // wrapperCol: { span: 16 },
 };
 
 const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
+  wrapperCol: { offset: 0, span: 0 },
 };
 export default function NewsAdd() {
   const [form] = Form.useForm<INewsInfo>()
@@ -32,7 +32,7 @@ export default function NewsAdd() {
 
   const checkPic = (rule: any, value: []) => {
     return new Promise((resolve, reject) => {
-      if (!value) {
+      if(!value){
         reject(new Error('请上传图片'))
       } else {
         resolve(value)
@@ -48,7 +48,7 @@ export default function NewsAdd() {
           form={form}
           name="control-hooks"
           onFinish={onFinish}
-          style={{ maxWidth: 600 }}
+          // style={{ maxWidth: 600 }}
         >
           <Form.Item name="title" label="标题" rules={[{ required: true }]}>
             <Input />
@@ -71,22 +71,22 @@ export default function NewsAdd() {
           </Form.Item>
 
           {/* coverPath */}
-          <Form.Item name="coverPath" label="封面" rules={[{ validator: checkPic }]}>
+          <Form.Item name="coverPath" label="封面" rules={[{validator: checkPic}]}>
             <ImageUpload imageType={ImageType.NEWS} event={(val, rawFile) => {
               console.log('val', val, 'rawfile', rawFile)
 
-              form.setFieldsValue({ coverPath: val, file: rawFile, userID: userid, isPublish: 0 })
+              form.setFieldsValue({coverPath: val, file: rawFile, userID: userid, isPublish: 0})
             }} />
           </Form.Item>
 
           <Form.Item name='file'>
-            <Input style={{ display: 'none' }} />
+            <Input style={{display: 'none'}} />
           </Form.Item>
           <Form.Item name='userID'>
-            <Input style={{ display: 'none' }} />
+            <Input style={{display: 'none'}} />
           </Form.Item>
           <Form.Item name='isPublish'>
-            <Input style={{ display: 'none' }} />
+            <Input style={{display: 'none'}} />
           </Form.Item>
 
 

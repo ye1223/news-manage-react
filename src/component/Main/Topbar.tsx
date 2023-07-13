@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from 'react'
-import { Avatar, Popconfirm } from 'antd'
+import { Avatar, Popconfirm, theme } from 'antd'
 import { AppstoreTwoTone } from '@ant-design/icons'
 import './style/topbar.scss'
 import { useNavigate } from 'react-router-dom'
 import { collapseAction } from '../../redux/actionCreator/sidebarActionCreator'
-import { connect, useDispatch } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
 import { IUserInfo } from '../../types/user'
-import { store } from '../../redux/store'
+import { RootState, store } from '../../redux/store'
+import { ThemeMode } from '../../types/theme'
+
 
 interface IProps {
     collapseAction: any
     userinfo: IUserInfo
 }
 
-function Topbar(props: IProps) {
 
+
+function Topbar(props: IProps) {
+    const themeMode = useSelector((state: RootState) => state.themeReducer.themeMode)
+    const color = (themeMode === ThemeMode.LIGHT ? '#000' : '#fff' )
     const navigate = useNavigate()
-    const dispatch = useDispatch()
     // 需要将用户信息存为状态
     const [username, setusername] = useState<string>('')
 
@@ -44,11 +48,11 @@ function Topbar(props: IProps) {
         <div className='top-container'>
             <div className='left'>
                 <div><AppstoreTwoTone onClick={() => { toggleCollapse() }} style={{ fontSize: '30px' }} /></div>
-                <h2>企业门户网站管理系统</h2>
+                <h2 style={{ color }}>企业门户网站管理系统</h2>
             </div>
             <div className='right'>
 
-                <p>
+                <p style={{color}}>
                     欢迎回来 {username}
                 </p>
 
@@ -62,7 +66,6 @@ function Topbar(props: IProps) {
                 >
                     <Avatar style={{ backgroundColor: '#fde3cf', color: '#f56a00' }}>user</Avatar>
                 </Popconfirm>
-
 
             </div>
         </div>

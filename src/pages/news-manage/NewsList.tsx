@@ -8,6 +8,7 @@ import { RootState } from '../../redux/store'
 import { Category } from '../../enums/news.enum'
 import { useNavigate } from 'react-router-dom'
 import { CloseCircleOutlined } from '@ant-design/icons'
+import formatTime from '../../util/formattime'
 
 export default function NewsList() {
   const [list, setlist] = useState<INewsInfo[]>([])
@@ -29,7 +30,7 @@ export default function NewsList() {
         if (res.ActionType === 'OK') {
           // console.log('111', res.newsList)
           // todo 增加key
-          res.newsList.forEach(item => {
+          res.newsList?.forEach(item => {
             item.key = item._id
           })
           setlist(res.newsList)
@@ -113,7 +114,10 @@ export default function NewsList() {
     {
       title: '更新时间',
       key: 'editTime',
-      dataIndex: 'editTime'
+      dataIndex: 'editTime',
+      render: (_, {editTime}) => {
+        return formatTime(editTime)
+      }
     },
     {
       title: '是否发布',

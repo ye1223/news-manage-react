@@ -54,11 +54,11 @@ const UserForm: React.FC<IProps> = () => {
     // todo axios提交
     const onFinish = (values: any) => {
         // 收集的表单数据
-        // console.log(values)
+        console.log(values)
 
         adminapi.upload(values).then(res => res.data)
             .then((res: IReturnUserInfo) => {
-                // console.log('onfinish', res)
+                console.log('onfinish', res)
                 if (res.ActionType === 'OK') {
                     // 更新redux中当前用户信息
                     dispatch(userInfoAction(res.info))
@@ -106,9 +106,10 @@ const UserForm: React.FC<IProps> = () => {
                 <Input.TextArea rows={4} />
             </Form.Item>
 
-            <Form.Item name="avatar" label="头像" rules={[{ required: true }]}>
+            <Form.Item name="avatar" label="头像" rules={[{ required: false }]}>
                 <ImageUpload imageType={ImageType.AVATAR} event={(blobValue: any, rawFile: any) => {
                     // setblobValue(blobValue)
+                    // <Input  style={{display: 'none'}}/>
                     form.setFieldsValue({ avatar: blobValue, file: rawFile });
                 }} />
             </Form.Item>
